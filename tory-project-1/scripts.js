@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  // AM: You can declare these variables on one line to save space, like so...
+  // AM: var question1, question2, question3; (and so on...)
   var question1;
   var question2;
   var question3;
@@ -12,6 +14,8 @@ $(document).ready(function(){
   var theQuiz;
 
   //Hides elements from appearing
+  // AM: Rather than run all these hide/show commands on page load, how about setting the default display properties accordingly in your stylesheet?
+  // AM: That way your code is cleaner and you can still show/hide things accordingly later in your code depending on user interaction.
   $(".question").hide();
   $("#question0").show();
   $(".answerArea").hide();
@@ -54,6 +58,9 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
     $(someElement).fadeIn('slow', function () {
       fadeItOut();
     });
+    // AM: Keep in mind that by defining fadeItIn() and fadeItOut() inside fadeThis(), they will be redefined every time you run fadeThis().
+    // AM: The impact on performance isn't too big here since this is a small project, but think about what would happen if you did this in a much larger code base.
+    // AM: How could you refactor this so that fadeItIn() and fadeItOut() exist outside of fadeThis()?
     function fadeItIn() {
       $(someElement).fadeTo('slow', 1, function () {
         fadeItOut();
@@ -77,6 +84,8 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
   var checkAnswer = function(questionNumber, answerType, correctAnswer){
     if(questionCounter===questionNumber){
 
+      // AM: Be mindful of creating event listeners in functions. If the function is run more than once, you run the risk of creating multiple event listeners for the same thing.
+      // AM: Although looks like you took that into account by using `.off` later in your code!
       // only one choice is selected
       $(".answerChoice").on("click", function(){
         if ($(this).css("background-color")!=selectedColor){
@@ -104,6 +113,7 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
         $("#itsTrueFalse").hide();
         $("#multipleChoice").show();
         $("#question"+questionNumber).html("<p>"+theQuiz[questionNumber-1].question+"</p>");
+        // AM: What would the next four lines of code look like if you used a loop instead?
         $("#mcA").html("<p>"+theQuiz[questionNumber-1].mcA+"</p>");
         $("#mcB").html("<p>"+theQuiz[questionNumber-1].mcB+"</p>");
         $("#mcC").html("<p>"+theQuiz[questionNumber-1].mcC+"</p>");
@@ -143,6 +153,8 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
             showRightAnswerDescription();
           }
           else if ( (correctAnswer!="#mcA") && ($("#mcA").css("background-color") === selectedColor)){
+            // AM: Notice you repeat the next two lines multiple times in your code.
+            // AM: Maybe you could refactor this into a function that takes the jQuery selector and color as arguments...
             $("#mcA").css("background-color", wrongAnswerColor);
             showRightAnswerDescription();
           }
@@ -182,6 +194,8 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
       }
       $(".hallOfGlory").prepend("<p class=\"turnsOfGlory\" id=\"game"+numTimesPlayed+"\" style=\"background-color: "+highScoreColor+"\">Quiz "+choosenQuiz+",Game "+numTimesPlayed+" -- scored "+answerCounter+" out of "+numOfQuestions+" -- "+turnScore.toFixed(2)+"<span> -- Perfect Score! </span></p>");
       highScore = turnScore;
+      // AM: Encourage you to remove debut console.log statements before submitting projects (both in-class and IRL!).
+      // AM: If you want to keep them for future reference, encourage you to create a separate branch that contains them.
       console.log("turnScore"+turnScore);
       console.log("highScore"+highScore);
     }
@@ -244,6 +258,7 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
         //what is your quiz called
         choosenQuiz = "Hard Quiz";
       }
+      // AM: When checking for truthiness, you don't have to type out `===true`. Simiarly, with falsiness, you can just precede the condition with `!` instead of typing out `===false`.
       else if (($(".quiz1").prop("checked")===false)&&(($(".quiz2").prop("checked")===true))){
         //Quiz 2 questions
         question1 = {question: "Where is the capital of the United States?", mcA: "Detroit", mcB: "Washington DC", mcC: "New York", mcD: "Tampa", answerText: "<p>The capital of the US is Washington DC</p>"};
@@ -269,6 +284,8 @@ $(".questionArea").append("<div class=\"questionStart\" id=\"question0\">Hello! 
       $(".quizChoices").hide();
       event.preventDefault();
       $(".nextButton").text("NEXT");
+      // AM: While the code comments are helpful, they can be a bit daunting to read when there is a new one every other line.
+      // AM: Some things to consider are whether you can consolidate multiple comments into a single line/section, or if you can get rid of a comment altogether.
       if (questionCounter < (numOfQuestions+1)){
         // //Start timer through startWatch
         // $(".timerArea").show();
