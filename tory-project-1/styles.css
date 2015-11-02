@@ -1,3 +1,6 @@
+/* AM: Encourage you to separate your stylesheet into sections using code comments. */
+/* AM: That way, if you, me or anybody else wants to see what the styling is for a given portion of your page, they can easily scroll down to the appropriate comment. */
+
 *
 {
     font-family: 'Muli', sans-serif;
