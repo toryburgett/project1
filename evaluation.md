@@ -18,7 +18,7 @@
 
 **Meets Expectations**. Good job here! Indentation and styling was consistent and you made use of code comments. There are opportunities to clean things up though. Some things to consider are consolidating code comments and ways to make your code DRYer. As you pointed out in your project submission, the JS file is a bit long! Take a look at my inline code comments for more...
 
-[inline code comments here](https://github.com/jshawl/wdi_project_1/compare/73e11c4...5c7cbec)
+[inline code comments here](https://github.com/amaseda/project1/blob/master/evaluation.md)
 
 ## Problem Solving
 
